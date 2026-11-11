@@ -16,6 +16,8 @@ I collected 8,079 videos from 8 T-pop girl group channels and used them to answe
 
 The three results fit together: the MV goes up at 19:00, one hour before fans are most active.
 
+These results are turned into a [campaign plan](#4-campaign-plan) with a launch timeline, pre-order tiers, a media budget in Thai baht and a measurement plan.
+
 ## Data
 
 - **Source:** YouTube Data API v3
@@ -87,6 +89,80 @@ Comment times from up to 100 recent videos per group. Comments in the first 48 h
 - Same without 4EVE, and 3 of 4 groups peak at 20:00-21:00 (VIIS peaks at 09:00)
 - Weekdays have a sharp peak at 20:00 (8.9%). Weekends are flatter, with 18:00-23:00 all around 6-7%
 
+## 4. Campaign plan
+
+The plan uses the three results above, plus public market data. **Prices, costs and sales volumes are assumptions** and are marked as such.
+
+### Launch timeline
+
+![Launch timeline](reports/figures/launch_timeline.png)
+
+8 weeks (W-3 to W+4): 63 Shorts and 8 long videos, so 89% Shorts, close to the market (73-94%). The difference from other groups is 3 dance videos after the MV.
+
+| Day | Main post | Extra post (MV week) |
+|---|---|---|
+| Monday-Friday | 19:30-20:00 | 12:00 |
+| Saturday-Sunday | 18:00 | 12:00 |
+| MV day (Thursday) | MV at 19:00, Short at 21:00 | - |
+
+### Pre-order tiers (THB)
+
+Early buyers get extra items, not a discount.
+
+| Tier | Price | Unit cost (assumed) | Profit per unit | Margin |
+|---|---|---|---|---|
+| Standard | 590 | 250 | 310.50 | 52.6% |
+| Early-bird (first 72 hours) | 690 | 290 | 365.50 | 53.0% |
+| Superfan Bundle | 1,890 | 780 | 1,015.50 | 53.7% |
+
+Profit = price - unit cost - 5% payment fee.
+
+With 5,000 units (3,000 / 1,500 / 500), revenue is THB 3,750,000 and profit is THB 1,987,500. The Superfan Bundle is 10% of units but 25.5% of profit.
+
+If Early-bird used a 15% discount instead, profit per unit would drop from THB 365.50 to THB 226.43.
+
+**Price check:** a K-pop album sells for about 20,000 won (about $15, or THB 507) in Korea, so THB 590 is close to the market.
+
+**Cost sensitivity:** real album costs are not public, so I tested higher costs.
+
+| Album cost | Total profit | Margin | After max media budget |
+|---|---|---|---|
+| As assumed | 1,987,500 | 53.0% | ~1,454,000 |
+| +20% | 1,672,500 | 44.6% | ~1,139,000 |
+| +30% | 1,515,000 | 40.4% | ~981,000 |
+
+### Media budget (THB)
+
+Ad cost per 1,000 impressions (CPM) in Thailand, changed to baht at 1 USD = 33.77 THB:
+
+| Platform | CPM (THB) | Target impressions | Budget (THB) |
+|---|---|---|---|
+| TikTok | 30-88 | 3,000,000 | 91,000-263,000 |
+| Instagram | 54-135 | 2,000,000 | 108,000-270,000 |
+| YouTube | no Thai data found | no paid ads | - |
+| **Total** | | **5,000,000** | **199,000-534,000** |
+
+Budget = impressions / 1,000 x CPM. The 5 million impression target and the 60/40 split are assumptions. The budget is 10-27% of the pre-order profit.
+
+Why TikTok first:
+- Lowest CPM, and it fits VELORA's Gen Z fans
+- Thai advertisers are moving to TikTok. In 2026, Thai digital ad spend is forecast at THB 32,339 million: Meta THB 8,157 million (25%, -4%), **TikTok THB 7,779 million (24%, +16%)**, YouTube THB 3,180 million (10%, -15%)
+- YouTube growth comes from the MV and Shorts (organic), based on the results above
+
+### Measurement plan
+
+| Test | How | Decision rule |
+|---|---|---|
+| Shorts posting time | W+1 to W+4, switch the main weekday post between 19:30 and 12:00 | If 12:00 gets no more than 10% fewer likes in 7 days, use both times |
+| Dance videos | Score each dance video against VELORA's own median video (same method as above) | Score 2 or more = make dance videos for every single |
+| Pre-order reminder | Send a LINE reminder to 90% of followers, keep 10% as a holdout | Uplift above 0 and worth the cost = use it again |
+
+The holdout test uses the same uplift idea as my [promo uplift project](https://github.com/Vachirasak-Narkklin/promo-uplift-project).
+
+### TikTok data (next step)
+
+The UGC target (1,000 videos using the "No Filter" sound) is still a guess. TikTok has no API for personal projects, so the plan is to record sound data by hand from Chartex or Soundcharts for 8-10 benchmark singles in [`data/manual/tiktok_sounds.csv`](data/manual/tiktok_sounds.csv), then use the median as the target. These numbers are totals on the day checked, not the first 30 days.
+
 ## Checks and limitations
 
 **Robustness check:** 4EVE is much bigger than the other groups, so every result was also checked without 4EVE. This changed the release timing result.
@@ -98,6 +174,7 @@ Comment times from up to 100 recent videos per group. Comments in the first 48 h
 - Content type is based on the video title, so some videos may be in the wrong type
 - Comment time is not the same as watch time, and some fans live outside Thailand
 - Only 4 groups have enough comments for the comment hours analysis
+- Album costs, prices and sales volumes in the campaign plan are assumptions. CPM figures are market ranges, and the exchange rate changes daily
 
 ## Project structure
 
@@ -110,7 +187,8 @@ velora-fan-engagement-campaign/
 │   └── comment_hours.ipynb      # when fans are active
 ├── reports/figures/             # charts used in this README
 ├── src/test_connection.py       # check that the API key works
-├── data/                        # not included (see below)
+├── data/manual/tiktok_sounds.csv # TikTok sound data, recorded by hand
+├── data/raw, data/processed     # not included (see below)
 └── requirements.txt
 ```
 
@@ -139,5 +217,14 @@ Python, pandas, matplotlib, YouTube Data API v3, Jupyter
 
 ## Next
 
-- Campaign blueprint: launch timeline, pre-order tiers with margin, and KPI plan
+- Fill in the TikTok sound data and set the UGC target
 - Key visuals and social media designs for VELORA
+
+## Sources
+
+- YouTube Data API v3, collected 10 November 2026
+- Thailand CPM: [Emerging Market Ad Costs: Brazil, India, and Southeast Asia - Stackmatix](https://stackmatix.com/blog/emerging-market-ad-costs-brazil-india-sea) (September 2026)
+- Thailand digital ad spend 2026: [DAAT and Kantar revise Thailand's 2026 digital ad spend - Relevant Audience](https://www.relevantaudience.com/digital-marketing-en/daat-kantar-thailand-digital-ad-spend-2026-revised-forecast/) (October 2026)
+- Exchange rate 1 USD = 33.77 THB: [Wise](https://wise.com/us/currency-converter/usd-to-thb-rate) (checked 12 November 2026)
+- K-pop album retail price: [Herald Business](https://mbiz.heraldcorp.com/article/10859218)
+- TikTok sound data: [Chartex](https://chartex.com/tiktok/sound/19454161), [Soundcharts - TikTok Charts Thailand](https://soundcharts.com/en/charts/tiktok/thailand)
