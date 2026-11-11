@@ -159,9 +159,27 @@ Why TikTok first:
 
 The holdout test uses the same uplift idea as my [promo uplift project](https://github.com/Vachirasak-Narkklin/promo-uplift-project).
 
-### TikTok data (next step)
+### TikTok UGC target
 
-The UGC target (1,000 videos using the "No Filter" sound) is still a guess. TikTok has no API for personal projects, so the plan is to record sound data by hand from Chartex or Soundcharts for 8-10 benchmark singles in [`data/manual/tiktok_sounds.csv`](data/manual/tiktok_sounds.csv), then use the median as the target. These numbers are totals on the day checked, not the first 30 days.
+**The first guess of 1,000 videos was too high.** I checked how many TikTok videos use the official sound of 10 benchmark singles, from public TikTok sound pages on 12 November 2026 ([`data/manual/tiktok_sounds.csv`](data/manual/tiktok_sounds.csv)).
+
+| Group | Song | Released | Videos using the sound |
+|---|---|---|---|
+| FELIZZ | Cat Me If You Can | Jun 2026 | 1,272 |
+| EMPRESS | Say less | Feb 2025 | 1,038 |
+| FELIZZ | Friend List | Sep 2026 | 853 (in 45 days) |
+| EMPRESS | Too L8 | Jul 2024 | 624 |
+| MXFRUIT | Guess What ? | May 2025 | 526 |
+| MXFRUIT | magnetize | Jul 2024 | 467 |
+| MXFRUIT | so good so bad | May 2024 | 435 |
+| MXFRUIT | one more chance | Nov 2024 | 367 |
+| Pretzelle | RED FLAG | Mar 2025 | 198 |
+| **Median (9 rookie-group songs)** | | | **526** |
+| 4EVE (ceiling) | เปิ๊ดสะก๊าด | Dec 2025 | 3,691 |
+
+Only 2 of 9 songs passed 1,000 videos over their whole life. **New target: 500 videos in the first 30 days, stretch goal 850.** 500 matches the median of a whole song's life, so it is a hard goal for a new group, but the dance challenge and TikTok ads support it. 850 is what FELIZZ's "Friend List" reached in 45 days with the same kind of dance challenge.
+
+These numbers are totals on the day checked, not the first 30 days. Only the main official sound is counted (other cuts are listed in the notes column).
 
 ## Checks and limitations
 
@@ -187,7 +205,7 @@ velora-fan-engagement-campaign/
 │   └── comment_hours.ipynb      # when fans are active
 ├── reports/figures/             # charts used in this README
 ├── src/test_connection.py       # check that the API key works
-├── data/manual/tiktok_sounds.csv # TikTok sound data, recorded by hand
+├── data/manual/tiktok_sounds.csv # TikTok sound data from public sound pages
 ├── data/raw, data/processed     # not included (see below)
 └── requirements.txt
 ```
@@ -217,7 +235,6 @@ Python, pandas, matplotlib, YouTube Data API v3, Jupyter
 
 ## Next
 
-- Fill in the TikTok sound data and set the UGC target
 - Key visuals and social media designs for VELORA
 
 ## Sources
@@ -227,4 +244,4 @@ Python, pandas, matplotlib, YouTube Data API v3, Jupyter
 - Thailand digital ad spend 2026: [DAAT and Kantar revise Thailand's 2026 digital ad spend - Relevant Audience](https://www.relevantaudience.com/digital-marketing-en/daat-kantar-thailand-digital-ad-spend-2026-revised-forecast/) (October 2026)
 - Exchange rate 1 USD = 33.77 THB: [Wise](https://wise.com/us/currency-converter/usd-to-thb-rate) (checked 12 November 2026)
 - K-pop album retail price: [Herald Business](https://mbiz.heraldcorp.com/article/10859218)
-- TikTok sound data: [Chartex](https://chartex.com/tiktok/sound/19454161), [Soundcharts - TikTok Charts Thailand](https://soundcharts.com/en/charts/tiktok/thailand)
+- TikTok videos using each sound: public TikTok sound pages, for example [Friend List](https://www.tiktok.com/music/Friend-List-7689184244284688436) (checked 12 November 2026)
