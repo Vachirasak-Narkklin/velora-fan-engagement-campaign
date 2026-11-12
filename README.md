@@ -233,10 +233,6 @@ Results will be a little different from this README because view counts change e
 
 Python, pandas, matplotlib, YouTube Data API v3, Jupyter
 
-## Next
-
-- Key visuals and social media designs for VELORA
-
 ## Sources
 
 - YouTube Data API v3, collected 10 November 2026
